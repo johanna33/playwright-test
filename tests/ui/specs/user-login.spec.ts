@@ -1,49 +1,36 @@
-import { test } from "@playwright/test";
-import { LoginPage } from "../pages/login-page";
-import { RegistrationPage } from "../pages/registration-page";
+import { test } from "../../setup/base-fixture";
 import { credentials, newUser } from "../../common/test-data/user-data";
 
 test.describe("User Login", { tag: ["@login"] }, () => {
 
-    test.beforeEach(async ({ page }) => {
-        await test.step("Navigate to login page", async () => {
-            await page.goto("");
-        });
-    });
-
-    test.afterEach(async ({ page }) => {
-        const pm = new LoginPage(page);
+    test.afterEach(async ({ pm }) => {
         await test.step("Validate user logout succesfully", async () => {
-            await pm.doLogout();
+            await pm.getLoginPage().doLogout();
         });
     });
 
-    test("Verify user can login with valid credentials and logout", async ({ page }) => {
-        const pm = new LoginPage(page);
-
+    test("Verify user can login with valid credentials and logout", async ({ pm }) => {
         await test.step("Enter valid username and password and click login button", async () => {
-            await pm.doLogin(credentials.username, credentials.password);
+            await pm.getLoginPage().doLogin(credentials.username, credentials.password);
         });
 
         await test.step("Validate account services page is loaded", async () => {
-            await pm.assertSuccessUserLogin();
+            await pm.getLoginPage().assertSuccessUserLogin();
         });
     });
 
-    test("Verify new user registration", async ({ page }) => {
-        const pm = new RegistrationPage(page);
-
+    test("Verify new user registration", async ({ pm }) => {
         await test.step("Navigate to registration page", async () => {
-            await pm.openRegistrationPage();
+            await pm.getRegistrationPage().openRegistrationPage();
         });
 
         await test.step("Fill registration form", async () => {
-            await pm.fillRegistrationForm(newUser);
+            await pm.getRegistrationPage().fillRegistrationForm(newUser);
         });
 
         await test.step("Validate welcome message is displayed", async () => {
-            await pm.assertWelcomeMessage();
-            await pm.assertAccountCreatedText();
+            await pm.getRegistrationPage().assertWelcomeMessage();
+            await pm.getRegistrationPage().assertAccountCreatedText();
         });
     });
 
