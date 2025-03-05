@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: './tests/ui/specs',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -10,7 +10,8 @@ export default defineConfig({
 
   /* Shared settings for all the projects below.*/
   use: {
-    trace: 'on-first-retry',
+    baseURL: 'https://parabank.parasoft.com/parabank/index.htm',
+    trace: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
