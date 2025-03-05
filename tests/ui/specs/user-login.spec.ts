@@ -11,6 +11,13 @@ test.describe("User Login", { tag: ["@login"] }, () => {
         });
     });
 
+    test.afterEach(async ({ page }) => {
+        const pm = new LoginPage(page);
+        await test.step("Validate user logout succesfully", async () => {
+            await pm.doLogout();
+        });
+    });
+
     test("Verify user can login with valid credentials and logout", async ({ page }) => {
         const pm = new LoginPage(page);
 
@@ -21,16 +28,10 @@ test.describe("User Login", { tag: ["@login"] }, () => {
         await test.step("Validate account services page is loaded", async () => {
             await pm.assertSuccessUserLogin();
         });
-
-        await test.step("Validate user logout succesfully", async () => {
-            await pm.doLogout();
-        });
-
     });
 
     test("Verify new user registration", async ({ page }) => {
         const pm = new RegistrationPage(page);
-        const pm1 = new LoginPage(page);
 
         await test.step("Navigate to registration page", async () => {
             await pm.openRegistrationPage();
@@ -44,20 +45,6 @@ test.describe("User Login", { tag: ["@login"] }, () => {
             await pm.assertWelcomeMessage();
             await pm.assertAccountCreatedText();
         });
-
-        await test.step("Validate user logout succesfully", async () => {
-            await pm1.doLogout();
-        });
-        
     });
-
-    test("Verify login failure with incorrect credentials", async ({ page }) => {
-
-    });
-
-    test("Verify ‘Forgot login info?’", async ({ page }) => {
-
-    });
-
 
 });
