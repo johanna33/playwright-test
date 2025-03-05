@@ -33,14 +33,19 @@ export class AccountsPage {
      * This function opens the account details page only for the first account in the table.
      */
     async openAccountDetailsPage() {
-        const rows = await this.getAllRowsInTable(this.accountTable);
-        const firstRow = rows[0];
-        const cells = await this.getAllCellsInARow(firstRow);
-        const accountNumber = await cells[0].textContent();
+        const accountNumber = await this.getFirstRowAccountNumber();
         if (accountNumber) {
             const accountNumberLink = this.page.getByRole('link', { name: accountNumber });
             await accountNumberLink.click();
         }
+    }
+
+    async getFirstRowAccountNumber(): Promise<string | null> {
+        const rows = await this.getAllRowsInTable(this.accountTable);
+        const firstRow = rows[0];
+        const cells = await this.getAllCellsInARow(firstRow);
+        const accountNumber = await cells[0].textContent();
+        return accountNumber ? accountNumber.trim() : null;
     }
 
     async getTableHeaderLocators(table: Locator): Promise<Locator[]> {

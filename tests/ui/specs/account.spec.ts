@@ -3,6 +3,7 @@ import { LoginPage } from "../pages/login-page";
 import { AccountsPage } from "../pages/accounts-page";
 import { TransfersPage } from "../pages/transfers-page";
 import { credentials } from "../../common/test-data/user-data";
+import { transferData } from "../../common/test-data/account-data";
 
 test.describe("Account transactions", { tag: ["@account"] }, () => {
 
@@ -43,7 +44,7 @@ test.describe("Account transactions", { tag: ["@account"] }, () => {
         await test.step("Open one of the account listed.", async () => {
             await pm.openAccountDetailsPage();
         });
-       
+
         await test.step("Validate account number, type, balance, available and account activity", async () => {
             await pm.assertAccountDetailsArePresent();
             await pm.assertTransactionTableDataIsPresent();
@@ -53,26 +54,30 @@ test.describe("Account transactions", { tag: ["@account"] }, () => {
 
     test("Verify fund transfer between accounts", async ({ page }) => {
         const pm = new TransfersPage(page);
+        const pm1 = new AccountsPage(page);
+        let accountNumber: string | null;
+
+        await test.step("Navigate to the Accounts Overview page and get the account number", async () => {
+            await pm1.openAccountOverviewPage();
+            accountNumber = await pm1.getFirstRowAccountNumber();
+            if (accountNumber) {
+                transferData.fromAccount = accountNumber;
+                transferData.toAccount = accountNumber;
+            }
+        });
 
         await test.step("Navigate to transfer funds page", async () => {
-            
+            await pm.openTransferFundsPage();
         });
 
         await test.step("Enter valid transfer details and submit", async () => {
-            
+            await pm.fillTransferForm(transferData.amount, transferData.fromAccount, transferData.toAccount);
+            await pm.clickTransferButton();
         });
 
         await test.step("Validate transfer confirmation message", async () => {
-            
+            await pm.assertTransferConfirmation(transferData.amount);
         });
 
-        await test.step("Navigate to Find transactions page", async () => {
-            
-        });
-
-        await test.step("Validate the transferred amount is reflected in the transaction history", async () => {
-            
-        });
-        
     });
 });
