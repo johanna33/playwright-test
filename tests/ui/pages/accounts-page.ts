@@ -46,12 +46,15 @@ export class AccountsPage {
         }
     }
 
-    async getFirstRowAccountNumber(): Promise<string | null> {
-        const rows = await this.getAllRowsInTable(this.accountTable);
-        const firstRow = rows[0];
-        const cells = await this.getAllCellsInARow(firstRow);
-        const accountNumber = await cells[0].textContent();
-        return accountNumber ? accountNumber.trim() : null;
+    async getFirstRowAccountNumber(): Promise<string> {
+        let accountNumber = "";
+        const firstRow = this.accountTable.locator('tbody tr').first();
+        if (firstRow) {
+            const firstCell = firstRow.locator('td').first();
+            const cellText = await firstCell.textContent();
+            accountNumber = cellText ?? "";
+        }
+        return accountNumber.trim();
     }
 
     async getTableHeaderLocators(table: Locator): Promise<Locator[]> {

@@ -7,21 +7,21 @@ import { type APIRequestContext } from "@playwright/test";
  * @property requestOptions - Request configuration options like body, headers etc.
  * @property requestContext - Optional Playwright APIRequestContext for request customization
  * @property failStatus - If true, test fails on error; if false, test continues
- * @property printOptions - Optional logging configuration for request/response details
+ * @property logOptions - Optional logging configuration for request/response details
  */
 export interface ApiRequest {
     requestUrl: string;
     method: string;
     requestOptions: object;
     requestContext?: APIRequestContext;
-    failStatus?: boolean;     //TODO check if can make optional
-    printOptions?: PrintOptions;
+    failStatus?: boolean;
+    logOptions?: logOptions;
 }
 
-export interface PrintOptions {
-    printRequest?: boolean;
-    printResponseBody?: boolean;
-    printPayload?: boolean;
+export interface logOptions {
+    logRequest?: boolean;
+    logResponseBody?: boolean;
+    logPayload?: boolean;
 }
 
 export enum ApiMethod {

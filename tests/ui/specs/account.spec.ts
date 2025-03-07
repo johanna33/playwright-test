@@ -1,5 +1,5 @@
 import { test } from "../../setup/base-fixture";
-import { credentials } from "../../common/test-data/user-data";
+// import { credentials } from "../../common/test-data/user-data";
 import { transferData } from "../../common/test-data/account-data";
 
 test.describe("Account transactions", { tag: ["@account"] }, () => {

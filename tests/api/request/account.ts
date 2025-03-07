@@ -9,9 +9,9 @@ export async function getAccounts(customerId: string) {
         method: ApiMethod.GET,
         requestOptions: {},
         failStatus: true,
-        printOptions: {
-            printRequest: true,
-            printResponseBody: true,
+        logOptions: {
+            logRequest: true,
+            logResponseBody: true,
         },
     }
     return await executeRequest(apiRequest);
@@ -23,9 +23,8 @@ export async function getAccountDetails(accountId: string) {
         method: ApiMethod.GET,
         requestOptions: {},
         failStatus: true,
-        printOptions: {
-            printRequest: true,
-            printResponseBody: true,
+        logOptions: {
+            logRequest: true,
         },
     }
     return await executeRequest(apiRequest);

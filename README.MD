@@ -18,7 +18,7 @@ This project includes:
     - A data-driven approach for test data handling, along with the Faker library to avoid hardcoded values.
     - Implementation of custom fixtures for common functionality and easy reusability.
     - The use of a generic API request function to handle all methods and errors dynamically.
-    - Sample of mocking and Intersecting API.
+    - Sample Intersecting API.
 
 #### NOTE: 
 Given the use of a public demo application for testing, some functionality displayed in the app is not available or working as expected. This introduces some limitations in my demo, and I was not able to fully implement certain techniques in both UI and API.    

@@ -1,6 +1,9 @@
 import { UserAccountData } from "../interfaces/user-interface";
 import { faker } from "@faker-js/faker";
 
+/*Note: The credentials were added here for this demo, in a real scenario, they will be stored in a .env file
+*       or a vault in case of a CI/CD pipeline, for security reasons.
+*/
 export const credentials = {
     username: 'mary22',
     password: 'test1234'

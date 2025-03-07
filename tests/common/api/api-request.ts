@@ -1,5 +1,5 @@
 import { APIResponse, request } from "@playwright/test";
-import { ApiRequest, PrintOptions } from "../interfaces/api-interface";
+import { ApiRequest, logOptions } from "../interfaces/api-interface";
 
 /**
  * Perform a request to the API and return the response.
@@ -19,7 +19,7 @@ export async function executeRequest(apiRequest: ApiRequest) {
             throw new Error(`${errorStatus} ${errorResponse} ${responseStatus}`);
         }
 
-        printLogMessage(apiRequest, response);
+        logRequestDetails(apiRequest, response);
         return response;
 
     } catch (error) {
@@ -27,17 +27,18 @@ export async function executeRequest(apiRequest: ApiRequest) {
     }
 }
 
-async function printLogMessage(apiRequest: ApiRequest, response: APIResponse) {
-    const { printOptions, requestUrl, method, requestOptions } = apiRequest;
-    if (printOptions) {
-        if (printOptions.printRequest) {
+async function logRequestDetails(apiRequest: ApiRequest, response: APIResponse) {
+    const { logOptions , requestUrl, method, requestOptions } = apiRequest;
+    if (logOptions) {
+        if (logOptions.logRequest) {
             console.log(`Request ${method} to ${requestUrl}`);
+            console.log(`Request status ${response.status()}`);
         }
-        if (printOptions.printPayload) {
+        if (logOptions.logPayload) {
             console.log(`Payload is ${JSON.stringify(requestOptions)}`);
         }
-        if (printOptions.printResponseBody) {
-            console.log(`Response body ${await response.text()}`);
+        if (logOptions.logResponseBody) {
+            console.log(`Response body ${await response.json()}`);
         }
     }
 }
