@@ -11,6 +11,7 @@ export class AccountsPage {
     readonly balanceValue: Locator;
     readonly availableBalanceValue: Locator;
     readonly transactionTable: Locator;
+    readonly updateContactInfoLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -23,10 +24,15 @@ export class AccountsPage {
         this.balanceValue = page.locator('#balance');
         this.availableBalanceValue = page.locator('#availableBalance');
         this.transactionTable = page.locator("#transactionTable");
+        this.updateContactInfoLink = page.getByRole('link', { name: 'Update Contact Info' });
     }
 
     async openAccountOverviewPage() {
         await this.accountsOverviewLink.click();
+    }
+
+    async openUpdateContactInfoPage() {
+        await this.updateContactInfoLink.click();
     }
 
     /*
@@ -90,5 +96,13 @@ export class AccountsPage {
     async assertTransactionTableDataIsPresent() {
         await expect(this.accountActivityHeading).toBeVisible();
         await expect(this.transactionTable).toBeVisible();
+    }
+
+    async getCustomerId(): Promise<string> {
+        const urlRegex = /.*customers\/\d+/;
+        const response = await this.page.waitForResponse(
+            (response) => !!response.url().match(urlRegex) && response.status() === 200);
+        const customerId = await response.json();
+        return customerId.id;
     }
 }
