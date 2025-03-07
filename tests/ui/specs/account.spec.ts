@@ -4,15 +4,15 @@ import { transferData } from "../../common/test-data/account-data";
 
 test.describe("Account transactions", { tag: ["@account"] }, () => {
 
-    test.beforeEach(async ({ pm }) => {
-        await test.step("Enter valid username and password and click login button", async () => {
-            await pm.getLoginPage().doLogin(credentials.username, credentials.password);
-        });
+    // test.beforeEach(async ({ pm }) => {
+    //     await test.step("Enter valid username and password and click login button", async () => {
+    //         await pm.getLoginPage().doLogin(credentials.username, credentials.password);
+    //     });
 
-        await test.step("Validate account services page is loaded", async () => {
-            await pm.getLoginPage().assertSuccessUserLogin();
-        });
-    });
+    //     await test.step("Validate account services page is loaded", async () => {
+    //         await pm.getLoginPage().assertSuccessUserLogin();
+    //     });
+    // });
 
     test.afterEach(async ({ pm }) => {
         await test.step("Validate user logout succesfully", async () => {

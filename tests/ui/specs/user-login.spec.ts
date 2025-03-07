@@ -1,6 +1,8 @@
 import { test } from "../../setup/base-fixture";
 import { credentials, newUser } from "../../common/test-data/user-data";
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test.describe("User Login", { tag: ["@login"] }, () => {
 
     test.afterEach(async ({ pm }) => {
