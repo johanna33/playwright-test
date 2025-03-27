@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: "${{ github.workspace }}/playwright-report/*.*"
+          path: "${{ github.workspace }}/playwright-report/"
