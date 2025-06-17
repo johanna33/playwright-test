@@ -5,7 +5,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: 0,
   workers: process.env.CI ? 4 : undefined,
-  reporter: 'html',
+  reporter: [['html', { title: 'Regression Test Report' }]],
 
   use: {
     baseURL: 'https://parabank.parasoft.com/parabank/index.htm',
