@@ -5,3 +5,13 @@ export const transferData = {
   fromAccount: "13344",
   toAccount: "13455",
 };
+
+export const checkingAccountData = {
+  value: "0",
+  label: "CHECKING",
+};
+
+export const savingsAccountData = {
+  value: "1",
+  label: "SAVINGS",
+};

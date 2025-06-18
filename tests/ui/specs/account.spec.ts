@@ -1,18 +1,8 @@
 import { test } from "../../setup/base-fixture";
-// import { credentials } from "../../common/test-data/user-data";
-import { transferData } from "../../common/test-data/account-data";
+import { transferData, checkingAccountData, savingsAccountData } from "../../common/test-data/account-data";
 
+const accountTypes = [checkingAccountData, savingsAccountData];
 test.describe("Account transactions", { tag: ["@account"] }, () => {
-  // test.beforeEach(async ({ pm }) => {
-  //     await test.step("Enter valid username and password and click login button", async () => {
-  //         await pm.getLoginPage().doLogin(credentials.username, credentials.password);
-  //     });
-
-  //     await test.step("Validate account services page is loaded", async () => {
-  //         await pm.getLoginPage().assertSuccessUserLogin();
-  //     });
-  // });
-
   test.afterEach(async ({ pm }) => {
     await test.step("Validate user logout succesfully", async () => {
       await pm.getLoginPage().doLogout();
@@ -57,18 +47,43 @@ test.describe("Account transactions", { tag: ["@account"] }, () => {
     await test.step("Enter valid transfer details and submit", async () => {
       await pm
         .getTransfersPage()
-        .fillTransferForm(
-          transferData.amount,
-          transferData.fromAccount,
-          transferData.toAccount
-        );
+        .fillTransferForm(transferData.amount, transferData.fromAccount, transferData.toAccount);
       await pm.getTransfersPage().clickTransferButton();
     });
 
     await test.step("Validate transfer confirmation message", async () => {
-      await pm
-        .getTransfersPage()
-        .assertTransferConfirmation(transferData.amount);
+      await pm.getTransfersPage().assertTransferConfirmation(transferData.amount);
     });
   });
+
+  for (const type of accountTypes) {
+    test(`Verify new ${type.label} account creation`, async ({ pm }) => {
+      let newAccountId = "";
+
+      await test.step("Navigate to the Create New Account page", async () => {
+        await pm.getNewAccountPage().openNewAccountPage();
+      });
+
+      await test.step(`Select the account type ${type.label}`, async () => {
+        await pm.getNewAccountPage().selectAccountType(type.value);
+      });
+
+      await test.step("Click the Open New Account button", async () => {
+        await pm.getNewAccountPage().clickOpenNewAccountButton();
+      });
+
+      await test.step("Validate the account is created successfully", async () => {
+        await pm.getNewAccountPage().assertSuccessMessage();
+        newAccountId = await pm.getNewAccountPage().assertNewAccountId();
+      });
+
+      await test.step("Navigate to the Accounts Overview page", async () => {
+        await pm.getAccountsPage().openAccountOverviewPage();
+      });
+
+      await test.step("Validate the new account is listed in the account overview", async () => {
+        await pm.getAccountsPage().assertAccountNumberIsPresent(newAccountId);
+      });
+    });
+  }
 });
