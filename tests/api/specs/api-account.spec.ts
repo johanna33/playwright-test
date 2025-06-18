@@ -1,9 +1,5 @@
 import { test, expect } from "../../setup/base-fixture";
-import {
-  getAccountDetails,
-  getAccounts,
-  updateCustomer,
-} from "../request/account";
+import { getAccountDetails, getAccounts, updateCustomer } from "../request/account";
 
 test.describe.configure({ mode: "serial" });
 
@@ -11,16 +7,13 @@ test.describe("Account API", () => {
   let customerId: string;
   let accountId: string;
 
-  test.beforeEach(
-    "get the customerId in the update contact info page",
-    async ({ pm }) => {
-      if (!customerId) {
-        await pm.getAccountsPage().openAccountOverviewPage();
-        await pm.getAccountsPage().openUpdateContactInfoPage();
-        customerId = await pm.getAccountsPage().getCustomerId();
-      }
+  test.beforeEach("get the customerId in the update contact info page", async ({ pm }) => {
+    if (!customerId) {
+      await pm.getAccountsPage().openAccountOverviewPage();
+      await pm.getAccountsPage().openUpdateContactInfoPage();
+      customerId = await pm.getAccountsPage().getCustomerId();
     }
-  );
+  });
 
   test("Verify account overview request", async () => {
     const response = await getAccounts(customerId);

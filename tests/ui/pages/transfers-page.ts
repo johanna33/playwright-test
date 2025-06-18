@@ -17,23 +17,15 @@ export class TransfersPage {
     this.fromAccountSelect = page.locator("#fromAccountId");
     this.toAccountSelect = page.locator("#toAccountId");
     this.transferButton = page.getByRole("button", { name: "Transfer" });
-    this.transferConfirmationText = page.getByText(
-      /\$\d+\.\d{2} has been transferred/
-    );
-    this.accountActivityMessage = page.getByText(
-      "See Account Activity for more"
-    );
+    this.transferConfirmationText = page.getByText(/\$\d+\.\d{2} has been transferred/);
+    this.accountActivityMessage = page.getByText("See Account Activity for more");
   }
 
   async openTransferFundsPage() {
     await this.transferFundsLink.click();
   }
 
-  async fillTransferForm(
-    amount: string,
-    fromAccount: string,
-    toAccount: string
-  ) {
+  async fillTransferForm(amount: string, fromAccount: string, toAccount: string) {
     await this.amountInput.fill(amount);
     await this.fromAccountSelect.selectOption(fromAccount);
     await this.toAccountSelect.selectOption(toAccount);
