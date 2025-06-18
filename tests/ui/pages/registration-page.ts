@@ -33,7 +33,7 @@ export class RegistrationPage {
         this.usernameTextBox = page.locator('[id="customer\\.username"]');
         this.passwordTextBox = page.locator('[id="customer\\.password"]');
         this.repeatedPasswordTextBox = page.locator('#repeatedPassword');
-        this.registerButton = page.getByRole('button', { name: 'Register' });
+        this.registerButton = page.getByRole('button', { name: 'Register' }).describe('Register Button');
         this.welcomeHeading = page.getByRole('heading', { name: /Welcome/ });
         this.accountCreatedText = page.getByText('Your account was created');
     }
