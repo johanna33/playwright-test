@@ -13,8 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",
-    "@playwright/test": "^1.53.0",
+    "@playwright/test": "^1.56.1",
     "@types/node": "^22.13.5",
-    "typescript": "^5.8.3"
+    "dotenv": "^17.2.3",
+    "typescript": "^5.9.3"
   }
 }
