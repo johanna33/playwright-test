@@ -1,15 +1,18 @@
 import { UserAccountData } from "../interfaces/user-interface";
 import { faker } from "@faker-js/faker";
 
-/*
- * Note: The credentials were added here on this demo, in a real scenario,
- * they will be stored in a .env file or a vault in case of a CI/CD pipeline,
- * for security reasons.
- */
-export const credentials = {
-  username: "mary22",
-  password: "test1234",
-};
+ export function getCredentials() { 
+  if (!process.env.USER_NAME || !process.env.PASSWORD) {
+    throw new Error(
+      `The USER_NAME and PASSWORD are missing in the .env file.`
+    );
+  }
+  const credentials = {
+    username: process.env.USER_NAME,
+    password: process.env.PASSWORD,
+  };
+  return credentials;
+}
 
 export const newUser: UserAccountData = {
   firstName: faker.person.firstName(),

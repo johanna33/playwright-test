@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { credentials } from "../test-data/user-data";
+import { getCredentials } from "../test-data/user-data";
 
 export function getCustomerPayloadInJson() {
   return {
@@ -29,8 +29,8 @@ export function getCustomerPayloadInFormUrlEncoded() {
     zipCode: faker.location.zipCode(),
     phoneNumber: faker.string.numeric(10),
     ssn: faker.string.numeric(9),
-    username: credentials.username,
-    password: credentials.password,
+    username: getCredentials().username,
+    password: getCredentials().password,
   });
   return {
     headers: {
