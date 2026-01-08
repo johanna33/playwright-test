@@ -15,7 +15,7 @@ export default defineConfig({
   // },
 
   use: {
-    baseURL: "https://parabank.parasoft.com/parabank/index.htm",
+    baseURL: process.env.URL,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },

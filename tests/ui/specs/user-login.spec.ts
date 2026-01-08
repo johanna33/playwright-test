@@ -1,5 +1,5 @@
 import { test } from "../../setup/base-fixture";
-import { credentials, newUser } from "../../common/test-data/user-data";
+import { getCredentials, newUser } from "../../common/test-data/user-data";
 
 test.use({ storageState: { cookies: [], origins: [] } });
 
@@ -12,7 +12,7 @@ test.describe("User Login", { tag: ["@login"] }, () => {
 
   test("Verify user can login with valid credentials and logout", async ({ pm }) => {
     await test.step("Enter valid username and password and click login button", async () => {
-      await pm.getLoginPage().doLogin(credentials.username, credentials.password);
+      await pm.getLoginPage().doLogin(getCredentials().username, getCredentials().password);
     });
 
     await test.step("Validate account services page is loaded", async () => {
