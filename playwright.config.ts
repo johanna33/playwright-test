@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
-import * as dotenv from "dotenv";
+import { loadEnvFile } from "node:process";
 
-dotenv.config();
+loadEnvFile();
 
 export default defineConfig({
   fullyParallel: true,
