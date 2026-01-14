@@ -4,6 +4,7 @@ import { AccountsPage } from "./accounts-page";
 import { RegistrationPage } from "./registration-page";
 import { TransfersPage } from "./transfers-page";
 import { NewAccountPage } from "./new-account-page";
+import { UpdateContactPage } from "./update-contact-page";
 
 export class PageManager {
   readonly page: Page;
@@ -12,6 +13,7 @@ export class PageManager {
   private readonly registrationPage: RegistrationPage;
   private readonly transfersPage: TransfersPage;
   private readonly newAccountPage: NewAccountPage;
+  private readonly updateContactPage: UpdateContactPage;
 
   constructor(page: Page) {
     this.page = page;
@@ -20,6 +22,7 @@ export class PageManager {
     this.registrationPage = new RegistrationPage(this.page);
     this.transfersPage = new TransfersPage(this.page);
     this.newAccountPage = new NewAccountPage(this.page);
+    this.updateContactPage = new UpdateContactPage(this.page);
   }
 
   getLoginPage() {
@@ -40,5 +43,9 @@ export class PageManager {
 
   getNewAccountPage() {
     return this.newAccountPage;
+  }
+
+  getUpdateContactPage() {
+    return this.updateContactPage;
   }
 }

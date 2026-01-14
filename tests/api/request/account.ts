@@ -39,3 +39,13 @@ export async function updateCustomer(customerId: string) {
   };
   return await executeRequest(apiRequest);
 }
+
+export async function getCustomerInfo(customerId: string) {
+  const apiRequest: ApiRequest = {
+    requestUrl: `${apiPaths.baseUrl}${apiPaths.customers}${customerId}`,
+    method: ApiMethod.GET,
+    requestOptions: {},
+    failStatus: true,
+  };
+  return await executeRequest(apiRequest);
+}
