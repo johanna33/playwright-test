@@ -15,11 +15,11 @@ export class LoginPage {
     this.usernameTextBox = page.locator("input[name='username']");
     this.passwordTextBox = page.locator("input[name='password']");
     this.loginButton = page.getByRole("button", { name: "Log In" });
-    this.loginErrorMessage = page.getByRole("heading", { name: "Error!" });
     this.menuTitle = page.getByRole("heading", { name: "Account Services" });
     this.logOutLink = page.getByRole("link", { name: "Log Out" });
     this.loginPageTitle = page.getByRole("heading", { name: "Welcome, Please Sign In" });
     this.loginPageTitle = page.getByRole("heading", { name: "Customer Login" });
+    this.loginErrorMessage = page.getByRole("heading", { name: "Error!" });
   }
 
   async doLogin(username: string, password: string) {
@@ -31,6 +31,10 @@ export class LoginPage {
   async doLogout() {
     await this.clickLogOutLink();
     await this.assertLoginPage();
+  }
+
+  async isUserLoginFailed() {
+    return this.page.url().includes("login.htm");
   }
 
   async assertSuccessUserLogin() {
