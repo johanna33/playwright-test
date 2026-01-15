@@ -9,10 +9,10 @@ export default defineConfig({
   retries: 0,
   workers: process.env.CI ? 4 : undefined,
   reporter: [["html", { title: "Regression Test Report" }]],
-  // timeout: 30000,
-  // expect: {
-  //   timeout: 10000,
-  // },
+  timeout: 60000,
+  expect: {
+    timeout: 10000,
+  },
 
   use: {
     baseURL: process.env.URL,
